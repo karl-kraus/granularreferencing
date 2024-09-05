@@ -27,6 +27,11 @@
                         </h1>
                         <p class="lead text-center">annotiert durch <xsl:value-of
                                 select=".//tei:titleStmt/tei:author/text()"/></p>
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky/?annotations=https://karl-kraus.github.io/permalinkythinky/annotations/a.json">Anmerkungen A</a>
+                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky/?annotations=https://karl-kraus.github.io/permalinkythinky/annotations/b.json">Anmerkungn B</a>
+                           
+                        </div>
                     
                         <div class="main-text">
                             <xsl:apply-templates select=".//tei:body"></xsl:apply-templates>

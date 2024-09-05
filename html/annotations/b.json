@@ -7,6 +7,7 @@
     {
         "start": "a289",
         "end": "a300",
-        "payload": "Apfel as er, Schale fraß sie."
-    }
+        "payload": "So ein schöner Satz!."
+    },
+    { "start": "a33", "end": "a47", "payload": "whatever" } 
 ]

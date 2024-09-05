@@ -23,13 +23,20 @@ function fetchSpanIds() {
 
     // If startId and endId are set, construct the URL and open the modal
     if (startId && endId) {
-        const currentUrl = window.location.href.split('?')[0]; // Get current URL without query params
-        const selectionUrl = `${currentUrl}?start-id=${startId}&end-id=${endId}`;
+       
         console.log(`Start ID: ${startId}, End ID: ${endId}`);
-        console.log(selectionUrl);
+        offsets = `
+        {
+            "start": "${startId}",
+            "end": "${endId}",
+            "payload": ""
+        }
+        `
+        console.log(offsets);
+
 
         // Insert the URL into the modal's content
-        document.getElementById('modalText').textContent = selectionUrl;
+        document.getElementById('modalText').textContent = offsets;
 
         // Show the modal using Bootstrap's JavaScript API
         const modal = new bootstrap.Modal(document.getElementById('selectionModal'));
@@ -39,29 +46,29 @@ function fetchSpanIds() {
     }
 }
 
+
+// Function to highlight a node (either text or element)
+function highlightNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+        // Wrap text node in a span and apply background color
+        const span = document.createElement('span');
+        span.style.backgroundColor = 'yellow';
+        node.parentNode.insertBefore(span, node);
+        span.appendChild(node);
+        return span
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+        node.style.backgroundColor = 'yellow';
+        return node
+    }
+}
+
 // Example: bind this function to mouseup event to trigger on text selection
 document.addEventListener('mouseup', fetchSpanIds);
 
-function highlightBetweenIdsFromUrl() {
-    // Parse the URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const startId = urlParams.get('start-id');
-    const endId = urlParams.get('end-id');
-    const annotationSource = urlParams('annotations')
-    if (annotationSource) {
-        fetch(annotationSource)
-        .then((res) => {
-            console.log(res)
-        })
-    }
 
-    // If startId or endId is missing, stop
-    if (!startId || !endId) {
-        console.info("start-id or end-id parameter missing in the URL.");
-        return;
-    }
-
-    // Get the elements with startId and endId
+function highlight(start, stop, payload) {
+    const startId = start;
+    const endId = stop;
     const startElement = document.getElementById(startId);
     const endElement = document.getElementById(endId);
 
@@ -70,23 +77,6 @@ function highlightBetweenIdsFromUrl() {
         console.error("Start or End element not found in the DOM.");
         return;
     }
-
-    // Function to highlight a node (either text or element)
-    function highlightNode(node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            // Wrap text node in a span and apply background color
-            const span = document.createElement('span');
-            span.style.backgroundColor = 'yellow';
-            node.parentNode.insertBefore(span, node);
-            span.appendChild(node);
-            return span
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-            node.style.backgroundColor = 'yellow';
-            return node
-        }
-
-    }
-
     // Traverse from startElement to endElement and highlight everything in between
     let currentElement = startElement;
 
@@ -95,13 +85,46 @@ function highlightBetweenIdsFromUrl() {
         newEl = highlightNode(currentElement);
 
         // Stop once we reach the end element
-        if (currentElement === endElement) break;
+        if (currentElement === endElement) {
+            console.log("hallo");
+            const newDiv = document.createElement("div");
+            newDiv.style.backgroundColor = "green"
+            newDiv.classList.add("p-5", "text-center")
+            const newContent = document.createTextNode(payload);
+            newDiv.appendChild(newContent);
+            currentElement.insertAdjacentElement("beforeend", newDiv)
+            break
+        }
+        
 
         // Move to the next node (including text nodes, elements, etc.)
         currentElement = newEl.nextSibling;
-
-
     }
+}
+
+function highlightBetweenIdsFromUrl() {
+    // Parse the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const annotationSource = urlParams.get('annotations')
+    if (annotationSource) {
+        fetch(annotationSource)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error
+                        (`HTTP error! Status: ${res.status}`);
+                }
+                return res.json()
+            })
+            .then((data) =>
+                // console.log(data))
+                data.forEach((item) => {
+                    highlight(item["start"], item["end"], item["payload"])
+                })
+            )
+            .catch((error) =>
+                console.error("Unable to fetch data:", error));
+    }
+
 }
 
 // Call the function to highlight elements and text on page load
