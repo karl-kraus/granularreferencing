@@ -27,11 +27,18 @@
                         </h1>
                         <p class="lead text-center">annotiert durch <xsl:value-of
                                 select=".//tei:titleStmt/tei:author/text()"/></p>
+                        <div class="alert alert-info" role="alert">
+                            <ul>
+                                <li>Annotations are loaded from json files; location of the file can be passed in via <code>annotations</code> url parameter</li>
+                                <li>To get start and end ids, select the text you'd like to annotate</li>
+                                <li>Selection and Hightlighting is a bit buggy in this demo</li>
+                            </ul>
+                        </div>
+                        
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                             <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky/?annotations=https://karl-kraus.github.io/permalinkythinky/annotations/a.json">Anmerkungen A</a>
-                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky/?annotations=https://karl-kraus.github.io/permalinkythinky/annotations/b.json">Anmerkungn B</a>
-                           
-                        </div>
+                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky/?annotations=https://karl-kraus.github.io/permalinkythinky/annotations/b.json">Anmerkungen B</a>  
+                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky">Keine Anmerkungen</a></div>
                     
                         <div class="main-text">
                             <xsl:apply-templates select=".//tei:body"></xsl:apply-templates>
