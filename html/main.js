@@ -1,4 +1,4 @@
-function highlightSelectionAndShowModal() {
+function fetchSpanIds() {
     const selection = window.getSelection();
     if (!selection.rangeCount) return;  // No selection, so exit
 
@@ -19,7 +19,7 @@ function highlightSelectionAndShowModal() {
         }
     });
     startId = selectedSpanIds[0];
-    endId =selectedSpanIds[selectedSpanIds.length - 1]
+    endId = selectedSpanIds[selectedSpanIds.length - 1]
 
     // If startId and endId are set, construct the URL and open the modal
     if (startId && endId) {
@@ -40,13 +40,20 @@ function highlightSelectionAndShowModal() {
 }
 
 // Example: bind this function to mouseup event to trigger on text selection
-document.addEventListener('mouseup', highlightSelectionAndShowModal);
+document.addEventListener('mouseup', fetchSpanIds);
 
 function highlightBetweenIdsFromUrl() {
     // Parse the URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const startId = urlParams.get('start-id');
     const endId = urlParams.get('end-id');
+    const annotationSource = urlParams('annotations')
+    if (annotationSource) {
+        fetch(annotationSource)
+        .then((res) => {
+            console.log(res)
+        })
+    }
 
     // If startId or endId is missing, stop
     if (!startId || !endId) {
@@ -92,8 +99,8 @@ function highlightBetweenIdsFromUrl() {
 
         // Move to the next node (including text nodes, elements, etc.)
         currentElement = newEl.nextSibling;
-        
-        
+
+
     }
 }
 
