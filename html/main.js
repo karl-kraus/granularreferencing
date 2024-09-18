@@ -23,7 +23,7 @@ function fetchSpanIds() {
 
     // If startId and endId are set, construct the URL and open the modal
     if (startId && endId) {
-       
+
         console.log(`Start ID: ${startId}, End ID: ${endId}`);
         offsets = `
         {
@@ -34,9 +34,13 @@ function fetchSpanIds() {
         `
         console.log(offsets);
 
+        currentUrl = location.protocol + '//' + location.host + location.pathname
+        permlink = `${currentUrl}?from=${startId}&to=${endId}`
+
 
         // Insert the URL into the modal's content
         document.getElementById('modalText').textContent = offsets;
+        document.getElementById('permalink').textContent = permlink;
 
         // Show the modal using Bootstrap's JavaScript API
         const modal = new bootstrap.Modal(document.getElementById('selectionModal'));
@@ -87,15 +91,18 @@ function highlight(start, stop, payload) {
         // Stop once we reach the end element
         if (currentElement === endElement) {
             console.log("hallo");
-            const newDiv = document.createElement("div");
-            newDiv.style.backgroundColor = "green"
-            newDiv.classList.add("p-5", "text-center")
-            const newContent = document.createTextNode(payload);
-            newDiv.appendChild(newContent);
-            currentElement.insertAdjacentElement("beforeend", newDiv)
+            if (payload) {
+                const newDiv = document.createElement("div");
+                newDiv.style.backgroundColor = "green"
+                newDiv.classList.add("p-5", "text-center")
+                const newContent = document.createTextNode(payload);
+                newDiv.appendChild(newContent);
+                currentElement.insertAdjacentElement("beforeend", newDiv)
+            }
+
             break
         }
-        
+
 
         // Move to the next node (including text nodes, elements, etc.)
         currentElement = newEl.nextSibling;
@@ -124,9 +131,19 @@ function highlightBetweenIdsFromUrl() {
             .catch((error) =>
                 console.error("Unable to fetch data:", error));
     }
+}
 
+function highlightCitedPassages() {
+    // Parse the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const startId = urlParams.get('from')
+    const endId = urlParams.get('to')
+    if (startId && endId) {
+        highlight(startId, endId, "")
+    }
 }
 
 // Call the function to highlight elements and text on page load
 window.addEventListener('DOMContentLoaded', highlightBetweenIdsFromUrl);
+window.addEventListener('DOMContentLoaded', highlightCitedPassages);
 
