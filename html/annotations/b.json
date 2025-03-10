@@ -2,12 +2,11 @@
     {
         "start": "a101",
         "end": "a139",
-        "payload": "Apfel as er, Schale fraß sie."
+        "payload": "[Your annotation could be placed here.]"
     },
     {
         "start": "a289",
         "end": "a300",
-        "payload": "So ein schöner Satz!."
-    },
-    { "start": "a33", "end": "a47", "payload": "whatever" } 
+        "payload": "[Or here.]"
+    }
 ]
