@@ -93,8 +93,12 @@ function highlight(start, stop, payload) {
             console.log("hallo");
             if (payload) {
                 const newDiv = document.createElement("div");
-                newDiv.style.backgroundColor = "green"
+                newDiv.style.backgroundColor = "lightRed"
                 newDiv.classList.add("p-5", "text-center")
+                
+                newDiv.style.position = "relative"
+	      newDiv.style.zIndex = "-10"
+                
                 const newContent = document.createTextNode(payload);
                 newDiv.appendChild(newContent);
                 currentElement.insertAdjacentElement("beforeend", newDiv)
