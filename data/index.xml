@@ -3,15 +3,15 @@
 	<teiHeader>
 		<fileDesc>
 			<titleStmt>
-				<title>Passage Reference Test</title>
-				<author>Bernhard Oberreither</author>
+				<title>Passage Reference Concept</title>
+				<author>Bernhard Oberreither, Peter Andorfer</author>
 			</titleStmt>
 			<publicationStmt>
 				<ab>0.1, annotated by Bernhard Oberreither</ab>
 				<p>Unpublished</p>
 			</publicationStmt>
 			<sourceDesc>
-				<p>Karl Kraus: In dieser großen Zeit. In: Die Fackel Nr. 404 vom Dezember 1914, S. 1–19.</p>
+				<p>Karl Kraus: In dieser großen Zeit. In: Die Fackel No. 404 (December 1914), pp. 1–19, p. 1.</p>
 			</sourceDesc>
 		</fileDesc>
 	</teiHeader>

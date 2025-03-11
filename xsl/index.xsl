@@ -25,13 +25,12 @@
                         <h1 class="text-center pt-5">
                             <xsl:value-of select=".//tei:titleStmt/tei:title/text()"/>
                         </h1>
-                        <p class="lead text-center">annotiert durch <xsl:value-of
-                                select=".//tei:titleStmt/tei:author/text()"/></p>
+                        <p class="lead text-center"><xsl:value-of select=".//tei:titleStmt/tei:author/text()"/></p>
                         <div class="alert alert-info" role="alert">
                             <ul>
-                                <li>Annotations are loaded from json files; location of the file can be passed in via <code>annotations</code> url parameter</li>
-                                <li>To get start and end ids, select the text you'd like to annotate</li>
-                                <li>Selection and Hightlighting is a bit buggy in this demo</li>
+                                <li>Annotations are loaded from json files; location of the file can be passed in via <code>annotations</code> url parameter.</li>
+                                <li>To get start and end ids, select the text you'd like to annotate.</li>
+                                <li>Demo; selection and hightlighting are subject to further improvement.</li>
                             </ul>
                         </div>
                         
@@ -43,6 +42,10 @@
                         <div class="main-text">
                             <xsl:apply-templates select=".//tei:body"></xsl:apply-templates>
                         </div>
+                    	<div class="blockquote-footer">
+                    		<xsl:value-of select="//tei:sourceDesc/tei:p"/>
+                    	</div>
+                    	
                     </div>
                     <!-- Bootstrap Modal -->
                     <div class="modal fade" id="selectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -52,11 +55,12 @@
                                    <h1 class="modal-title" id="exampleModalLabel">Selected Range URL</h1>
                                 </div>
                                 <div class="modal-body">
-                                   <p class="lead">To cite the selected range, please use the following URL</p>
+                                   <p class="lead">To cite the selected range, please use the following URL:</p>
                                    <p id="permalink"></p>
                                    <hr />
-                                   <p class="lead">To create a new annotation for the selected range, start with the snippet below</p>
+                                   <p class="lead">To create a new annotation for the selected range, start with the snippet below:</p>
                                    <p id="modalText"></p>
+                                	<p class="lead">... and insert it into your JSON file. Use the JSON URL as the value for the "annotations" parameter.</p>
                                 </div>
                                 <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
                              </div>
@@ -85,6 +89,12 @@
     <xsl:template match="tei:lb">
         <br />
     </xsl:template>
+	
+	<xsl:template match="tei:hi">
+		<span class="spacing" style="letter-spacing: 0.2rem;">
+			<xsl:apply-templates/>
+		</span>
+	</xsl:template>
     
     <xsl:template match="tei:fw">
         <span class="forme-work ps-5">
@@ -100,7 +110,16 @@
         </span>
     </xsl:template>
     
-    <xsl:template match="tei:p[@xml:id]">
+	<xsl:template match="tei:p[@xml:id and @rend='title']">
+		<p class="h3">
+			<xsl:attribute name="id">
+				<xsl:value-of select="data(./@xml:id)"/>
+			</xsl:attribute>
+			<xsl:apply-templates/>
+		</p>
+	</xsl:template>
+    
+    <xsl:template match="tei:p[@xml:id and @rend='paragraph']">
         <p>
             <xsl:attribute name="id">
                 <xsl:value-of select="data(./@xml:id)"/>
