@@ -93,7 +93,7 @@ function highlight(start, stop, payload) {
             console.log("hallo");
             if (payload) {
                 const newDiv = document.createElement("div");
-                newDiv.style.backgroundColor = "lightRed"
+                newDiv.style.backgroundColor = "lightGrey"
                 newDiv.classList.add("p-5", "text-center")
                 
                 newDiv.style.position = "relative"
