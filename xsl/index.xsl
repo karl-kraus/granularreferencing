@@ -70,7 +70,7 @@
                 </main>
                 <footer class="py-3 bg-body-tertiary">
                     <div class="text-center">
-                        <a href="https://github.com/karl-kraus/permalinkythinky">
+                        <a href="https://github.com/karl-kraus/granularreferencing">
                             <i aria-hidden="true" class="bi bi-github fs-2"></i>
                             <span class="visually-hidden">GitHub repo</span>
                         </a>
