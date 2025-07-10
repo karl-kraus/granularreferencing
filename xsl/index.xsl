@@ -35,9 +35,9 @@
                         </div>
                         
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky/?annotations=https://karl-kraus.github.io/permalinkythinky/annotations/a.json">Anmerkungen A</a>
-                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky/?annotations=https://karl-kraus.github.io/permalinkythinky/annotations/b.json">Anmerkungen B</a>  
-                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/permalinkythinky">Keine Anmerkungen</a></div>
+                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/granularreferencing/?annotations=https://karl-kraus.github.io/granularreferencing/annotations/a.json">Anmerkungen A</a>
+                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/granularreferencing/?annotations=https://karl-kraus.github.io/granularreferencing/annotations/b.json">Anmerkungen B</a>  
+                            <a type="button" class="btn btn-outline-primary" href="https://karl-kraus.github.io/granularreferencing">Keine Anmerkungen</a></div>
                     
                         <div class="main-text">
                             <xsl:apply-templates select=".//tei:body"></xsl:apply-templates>
